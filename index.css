@@ -1,0 +1,69 @@
+.row{
+width: 4em;
+height: 4em;
+display: inline-block;
+border: 1px solid black;
+position: relative;
+margin: 0px 5px 5px;
+border-radius: 7px;
+box-shadow: 0px 0px rgb(59, 59, 59), 4px 3px rgb(210, 206, 206);
+}
+.row:hover {
+    background: lightblue;
+}
+.row span{
+    font-size: 24px;
+    font-family: cursive;
+    position: absolute;
+    top:2px;
+    left: 4px;
+}
+
+.edit {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    outline-style: none;
+    border: none;
+    color: blanchedalmond;
+    background: black;
+    border-radius: 5px;
+}
+
+.row .edit:hover {
+    background: lightcoral;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+}
+
+.noIcon {
+    width: 10px;
+    height: 10px;
+    background: #999;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+}
+
+.container1{
+    margin-left: 36px;
+}
+
+.container2{
+    margin-left: 74px;
+}
+
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

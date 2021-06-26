@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="./index.css">
+
+<body>
+    <div id="box"></div>
+</body>
+<script>
+    const kbList = {
+        '0': ["q", 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
+        '1': ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
+        '2': ['z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    }
+    let kbObj = {
+        'q': 'qq.com', 'w': 'weibo.com', 'e': 'ele.me', 'r': 'renren.com', 't': 'twitter.com', 'y': 'youtube.com', 'u': 'ubuntu.com', 'i': 'iqiyi.com', 'o': 'opera.com', 'p': undefined, 'a': 'acfun.tv', 's': 'sohu.com', 'z': 'zhihu.com', 'm': 'www.mcdonalds.com.cn'
+    }
+    const oldData = localStorage.getItem('kbObj');
+    if (oldData) {
+        kbObj = JSON.parse(oldData);
+    }
+    const divBox = document.getElementById('box');
+    for (let i = 0; i < 3; i++) {
+        const divContent = document.createElement('div');
+        divContent.className = 'container' + i;
+        divBox.appendChild(divContent);
+        for (let k = 0; k < kbList[i].length; k++) {
+            const divItem = document.createElement('div');
+            divItem.className = 'row';
+            document.onkeypress = function (key) {
+                // window.location = 'http://' + kbObj[key.key];
+                if (kbObj[key.key]) {
+                    window.open('http://' + kbObj[key.key], '_blank')
+                } else {
+                    alert('没有链接,请重新编辑跳转链接')
+                }
+            }
+            const spanText = document.createElement('span');
+            spanText.textContent = kbList[i][k];
+            divItem.appendChild(spanText);
+            let img = document.createElement('img');
+            const keyIndex = kbList[i][k];
+            img = setImg(img, kbObj[keyIndex])
+            divItem.appendChild(img);
+            const btn = document.createElement('button');
+            btn.textContent = 'edit';
+            btn.className = 'edit';
+            btn.id = kbList[i][k];
+            btn.addEventListener('click', function () {
+                const newContent = prompt('请输入修改的地址');
+                kbObj[btn.id] = newContent;
+                btn.previousSibling = setImg(btn.previousSibling, newContent);
+                localStorage.setItem('kbObj', JSON.stringify(kbObj));
+            })
+            divItem.appendChild(btn);
+            divContent.appendChild(divItem);
+        }
+    }
+    function setImg(img, adress) {
+        if (adress) {
+            img.className = 'icon';
+            img.src = 'http://' + adress + '/favicon.ico'
+        } else {
+            img.src = '#';
+            img.className = 'noIcon';
+        }
+        img.onerror = function () {
+            img.src = '#';
+            img.className = 'noIcon';
+        }
+        return img;
+
+    }
+</script>
+
+</html>
